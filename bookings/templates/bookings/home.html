@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Restaurant Booking - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .navbar {
+            width: 100%;
+            background: #1d3557;
+            color: #fff;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1d3557;
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: #e9eef5;
+        }
+
+        .nav-links .primary-link {
+            background: #457b9d;
+            color: #fff;
+        }
+
+        .nav-links .primary-link:hover {
+            background: #35627f;
+        }
+
+        .hero-section {
+            min-height: 55vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px 30px;
+        }
+
+        .hero-card {
+            width: 100%;
+            max-width: 1000px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 46px;
+            color: #1d3557;
+            margin-bottom: 16px;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 26px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            text-decoration: none;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .hero-btn.primary {
+            background: #1d3557;
+            color: #fff;
+        }
+
+        .hero-btn.primary:hover {
+            background: #16324a;
+        }
+
+        .hero-btn.secondary {
+            background: #e9eef5;
+            color: #1d3557;
+        }
+
+        .hero-btn.secondary:hover {
+            background: #dbe5ef;
+        }
+
+        .hero-side-box {
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: #fff;
+            border-radius: 18px;
+            padding: 28px;
+        }
+
+        .hero-side-box h3 {
+            font-size: 24px;
+            margin-bottom: 14px;
+        }
+
+        .hero-side-box p {
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .search-section {
+            padding: 20px 20px 60px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .title {
+            font-size: 34px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1d3557;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d0d7e2;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background: #fff;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #457b9d;
+            box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.15);
+        }
+
+        .btn {
+            margin-top: 28px;
+            width: 100%;
+            padding: 14px;
+            background: #1d3557;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #16324a;
+        }
+
+        @media (max-width: 900px) {
+            .hero-card {
+                grid-template-columns: 1fr;
+                padding: 35px;
+            }
+
+            .hero-text h1 {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 14px 18px;
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            .card {
+                padding: 25px;
+            }
+
+            .hero-text h1 {
+                font-size: 30px;
+            }
+
+            .hero-text p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand">Restaurant Booking</div>
+        <div class="nav-links">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-card">
+            <div class="hero-text">
+                <h1>Welcome to Restaurant Booking</h1>
+                <p>
+                    Discover great restaurants, explore cuisines, and book your perfect dining
+                    experience with ease. Start by searching restaurants based on your preferred
+                    location, budget, cuisine, and rating.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#find-restaurants" class="hero-btn primary">Find Restaurants</a>
+                    <a href="{% url 'booking_history' %}" class="hero-btn secondary">View My Bookings</a>
+                </div>
+            </div>
+
+            <div class="hero-side-box">
+                <h3>Quick Dining Search</h3>
+                <p>
+                    Use our smart restaurant finder to get recommendations tailored to your needs.
+                    Compare options and proceed with booking in just a few steps.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="search-section" id="find-restaurants">
+        <div class="card">
+            <h2 class="title">Find Restaurants</h2>
+            <p class="subtitle">Search restaurants by location, cuisine, budget, and minimum rating.</p>
+
+            <form id="search-form" method="post" action="{% url 'recommendations' %}" autocomplete="off">
+                {% csrf_token %}
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="id_location">Location</label>
+                        {{ form.location }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_cuisine">Cuisine</label>
+                        {{ form.cuisine }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_budget">Budget</label>
+                        {{ form.budget }}
+                        <div class="field-help">1 = $, 2 = $$, 3 = $$$</div>
+                        {% if form.budget.errors %}
+                            <div class="errorlist">{{ form.budget.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_min_rating">Minimum Rating</label>
+                        {{ form.min_rating }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Get Recommendations</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener("pageshow", function () {
+            const form = document.getElementById("search-form");
+            if (form) {
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            background: #f4f7fb;
+            font-family: Arial, sans-serif;
+        }
+        .page-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+        .card {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        h1 {
+            color: #1d3557;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d0d7e2;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #1d3557;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .link {
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+        }
+        .errorlist {
+            color: #c0392b;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="card">
+            <h1>Create Account</h1>
+
+            <form method="post">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="errorlist">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+
+            <a class="link" href="{% url 'login' %}">Already have an account?</a>
+        </div>
+    </div>
+</body>
+</html>

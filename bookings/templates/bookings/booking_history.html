@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My Bookings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .navbar {
+            width: 100%;
+            background: #1d3557;
+            color: #fff;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1d3557;
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: #e9eef5;
+        }
+
+        .nav-links .primary-link {
+            background: #457b9d;
+            color: #fff;
+        }
+
+        .nav-links .primary-link:hover {
+            background: #35627f;
+        }
+
+        .hero-section {
+            padding: 40px 20px 20px;
+        }
+
+        .hero-card {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 42px;
+            color: #1d3557;
+            margin-bottom: 14px;
+        }
+
+        .hero-text p {
+            font-size: 17px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            text-decoration: none;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .hero-btn.primary {
+            background: #1d3557;
+            color: #fff;
+        }
+
+        .hero-btn.primary:hover {
+            background: #16324a;
+        }
+
+        .hero-btn.secondary {
+            background: #e9eef5;
+            color: #1d3557;
+        }
+
+        .hero-btn.secondary:hover {
+            background: #dbe5ef;
+        }
+
+        .hero-side-box {
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: #fff;
+            border-radius: 18px;
+            padding: 28px;
+        }
+
+        .hero-side-box h3 {
+            font-size: 24px;
+            margin-bottom: 14px;
+        }
+
+        .hero-side-box p {
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .bookings-section {
+            padding: 20px 20px 60px;
+        }
+
+        .section-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 34px;
+            color: #1d3557;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .booking-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 30px;
+            margin-bottom: 20px;
+        }
+
+        .booking-item {
+            font-size: 17px;
+            color: #333;
+        }
+
+        .booking-item strong {
+            color: #1d3557;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 18px;
+            background: #1d3557;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #16324a;
+        }
+
+        .empty-state {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .empty-state h3 {
+            color: #1d3557;
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+
+        .empty-state p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-card {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+
+            .hero-text h1 {
+                font-size: 34px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 14px 18px;
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+            }
+
+            .booking-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text h1 {
+                font-size: 30px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand">Restaurant Booking</div>
+        <div class="nav-links">
+            <a href="{% url 'home' %}" class="primary-link">Home</a>
+            <a href="{% url 'home' %}#find-restaurants">Find Restaurants</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </nav>
+
+    <section class="bookings-section">
+        <div class="section-container">
+            <h2 class="section-title">Booking History</h2>
+
+            {% if bookings %}
+                {% for booking in bookings %}
+                    <div class="booking-card">
+                        <div class="booking-grid">
+                            <div class="booking-item"><strong>Restaurant:</strong> {{ booking.restaurant_name }}</div>
+                            <div class="booking-item"><strong>Location:</strong> {{ booking.location }}</div>
+                            <div class="booking-item"><strong>Cuisine:</strong> {{ booking.cuisine }}</div>
+                            <div class="booking-item"><strong>Date:</strong> {{ booking.booking_date }}</div>
+                            <div class="booking-item"><strong>Time:</strong> {{ booking.booking_time }}</div>
+                            <div class="booking-item"><strong>Guests:</strong> {{ booking.guests }}</div>
+                        </div>
+
+                        <a class="btn" href="{% url 'booking_success' booking.id %}">View Booking</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <h3>No bookings yet</h3>
+                    <p>You have not made any restaurant reservations yet.</p>
+                    <a class="btn" href="{% url 'home' %}#find-restaurants">Find Restaurants</a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+</body>
+</html>

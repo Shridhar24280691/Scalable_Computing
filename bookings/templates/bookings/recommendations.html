@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Recommended Restaurants</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        h1 {
+            color: #1d3557;
+            margin-bottom: 20px;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+        }
+
+        .results-panel,
+        .map-panel {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+        }
+
+        #map {
+            width: 100%;
+            height: 650px;
+            border-radius: 12px;
+        }
+
+        .restaurant-card {
+            border: 1px solid #e3e8ef;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 16px;
+            background: #fafcff;
+        }
+
+        .restaurant-card h3 {
+            margin-top: 0;
+            color: #1d3557;
+        }
+
+        .restaurant-card p {
+            margin: 8px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 18px;
+            background: #1d3557;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: #16324a;
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            #map {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recommended Restaurants</h1>
+
+        <div class="layout">
+            <div class="results-panel">
+                {% if restaurants %}
+                    {% for restaurant in restaurants %}
+                        <div class="restaurant-card">
+                            <h3>{{ restaurant.name }}</h3>
+                            <p><strong>Location:</strong> {{ restaurant.location }}</p>
+                            <p><strong>Cuisine:</strong> {{ restaurant.cuisine }}</p>
+                            <p><strong>Rating:</strong> {{ restaurant.rating }}</p>
+                            <p><strong>Price Level:</strong> {{ restaurant.price_level }}</p>
+
+                            <form method="post" action="{% url 'booking_form' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="restaurant_id" value="{{ restaurant.restaurant_id }}">
+                                <input type="hidden" name="restaurant_name" value="{{ restaurant.name }}">
+                                <input type="hidden" name="location" value="{{ restaurant.location }}">
+                                <input type="hidden" name="cuisine" value="{{ restaurant.cuisine }}">
+                                <button type="submit" class="btn">Book This Restaurant</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No restaurants found.</p>
+                {% endif %}
+            </div>
+
+            <div class="map-panel">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
+    {{ restaurants_data|json_script:"restaurants-data" }}
+
+    <script>
+        function initMap() {
+            const restaurants = JSON.parse(
+                document.getElementById("restaurants-data").textContent
+            );
+
+            console.log("Restaurants received from Django:", restaurants);
+
+            const defaultCenter = { lat: 53.3498, lng: -6.2603 };
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: defaultCenter,
+                zoom: 7
+            });
+
+            const bounds = new google.maps.LatLngBounds();
+            const infoWindow = new google.maps.InfoWindow();
+
+            let validMarkerCount = 0;
+
+            restaurants.forEach((restaurant) => {
+                console.log("Checking restaurant:", restaurant);
+
+                const lat = Number.parseFloat(restaurant.latitude);
+                const lng = Number.parseFloat(restaurant.longitude);
+
+                console.log("Parsed coordinates:", lat, lng);
+
+                if (!Number.isNaN(lat) && !Number.isNaN(lng)) {
+                    const position = { lat, lng };
+
+                    const marker = new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        title: restaurant.name
+                    });
+
+                    validMarkerCount++;
+                    bounds.extend(position);
+
+                    marker.addListener("click", () => {
+                        infoWindow.setContent(`
+                            <div>
+                                <h3>${restaurant.name}</h3>
+                                <p><strong>Location:</strong> ${restaurant.location}</p>
+                                <p><strong>Cuisine:</strong> ${restaurant.cuisine}</p>
+                                <p><strong>Rating:</strong> ${restaurant.rating}</p>
+                                <p><strong>Price Level:</strong> ${restaurant.price_level}</p>
+                            </div>
+                    `   );
+                        infoWindow.open(map, marker);
+                    });
+                }
+            });
+
+            console.log("Valid markers added:", validMarkerCount);
+
+            if (validMarkerCount > 0) {
+                map.fitBounds(bounds);
+            } else {
+                console.log("No valid coordinates found, showing default map center.");
+            }
+        }
+    </script>
+
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap">
+    </script>
+</body>
+</html>

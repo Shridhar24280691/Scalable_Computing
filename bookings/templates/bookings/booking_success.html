@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Booking Confirmed</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .navbar {
+            width: 100%;
+            background: #1d3557;
+            color: #fff;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1d3557;
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: #e9eef5;
+        }
+
+        .nav-links .primary-link {
+            background: #457b9d;
+            color: #fff;
+        }
+
+        .nav-links .primary-link:hover {
+            background: #35627f;
+        }
+
+        .hero-section {
+            padding: 40px 20px 20px;
+        }
+
+        .hero-card {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 42px;
+            color: #1d3557;
+            margin-bottom: 14px;
+        }
+
+        .hero-text p {
+            font-size: 17px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            text-decoration: none;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .hero-btn.primary {
+            background: #1d3557;
+            color: #fff;
+        }
+
+        .hero-btn.primary:hover {
+            background: #16324a;
+        }
+
+        .hero-btn.secondary {
+            background: #e9eef5;
+            color: #1d3557;
+        }
+
+        .hero-btn.secondary:hover {
+            background: #dbe5ef;
+        }
+
+        .hero-side-box {
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: #fff;
+            border-radius: 18px;
+            padding: 28px;
+        }
+
+        .hero-side-box h3 {
+            font-size: 24px;
+            margin-bottom: 14px;
+        }
+
+        .hero-side-box p {
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .content-section {
+            padding: 20px 20px 60px;
+        }
+
+        .section-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+        }
+
+        .panel {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .panel h2 {
+            color: #1d3557;
+            font-size: 28px;
+            margin-bottom: 18px;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 24px;
+        }
+
+        .booking-item {
+            font-size: 16px;
+            color: #333;
+            background: #f8fbff;
+            border: 1px solid #e1e8f0;
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .booking-item strong {
+            color: #1d3557;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .booking-summary-box {
+            margin-top: 22px;
+            background: #f8fbff;
+            border: 1px solid #e1e8f0;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .booking-summary-box h3 {
+            color: #1d3557;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .booking-summary-box p {
+            margin: 8px 0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .generated-card {
+            margin-top: 10px;
+        }
+
+        .generated-card img {
+            max-width: 100%;
+            border: 1px solid #d9e0e8;
+            border-radius: 14px;
+            display: block;
+            background: #fff;
+        }
+
+        .qr-section {
+            margin-top: 24px;
+        }
+
+        .qr-section img {
+            width: 200px;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #d9e0e8;
+            border-radius: 14px;
+            padding: 10px;
+            background: #fff;
+        }
+
+        .muted {
+            color: #666;
+            margin-top: 12px;
+            line-height: 1.6;
+            font-size: 15px;
+            background: #f8fbff;
+            border: 1px solid #e1e8f0;
+            padding: 14px;
+            border-radius: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 12px 18px;
+            background: #1d3557;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #16324a;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 950px) {
+            .hero-card,
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text h1 {
+                font-size: 34px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 14px 18px;
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+            }
+
+            .booking-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card,
+            .panel {
+                padding: 24px;
+            }
+
+            .hero-text h1 {
+                font-size: 30px;
+            }
+
+            .panel h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand">Restaurant Booking</div>
+        <div class="nav-links">
+            <a href="{% url 'home' %}" class="primary-link">Home</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-card">
+            <div class="hero-text">
+                <h1>Booking Confirmed</h1>
+                <p>
+                    Your restaurant booking has been successfully created. You can review your reservation
+                    details below, download your booking card, and keep the QR code ready for quick access.
+                </p>
+                <div class="hero-buttons">
+                    <a href="{% url 'booking_history' %}" class="hero-btn primary">View My Bookings</a>
+                    <a href="{% url 'home' %}#find-restaurants" class="hero-btn secondary">Find More Restaurants</a>
+                </div>
+            </div>
+
+            <div class="hero-side-box">
+                <h3>Reservation Ready</h3>
+                <p>
+                    Your confirmation details are now available in one place. Save your booking card
+                    and QR code for a smoother dining experience.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="section-container">
+            <div class="content-grid">
+                <div class="panel">
+                    <h2>Booking Details</h2>
+
+                    <div class="booking-grid">
+                        <div class="booking-item">
+                            <strong>First Name</strong>
+                            {{ booking.first_name }}
+                        </div>
+
+                        <div class="booking-item">
+                            <strong>Last Name</strong>
+                            {{ booking.last_name }}
+                        </div>
+
+                        <div class="booking-item">
+                            <strong>Email</strong>
+                            {{ booking.customer_email }}
+                        </div>
+
+                        <div class="booking-item">
+                            <strong>Phone</strong>
+                            {{ booking.phone_number }}
+                        </div>
+
+                        <div class="booking-item">
+                            <strong>Restaurant</strong>
+                            {{ booking.restaurant_name }}
+                        </div>
+
+                        <div class="booking-item">
+                            <strong>Location</strong>
+                            {{ booking.location }}
+                        </div>
+
+                        <div class="booking-item">
+                            <strong>Cuisine</strong>
+                            {{ booking.cuisine }}
+                        </div>
+
+                        <div class="booking-item">
+                            <strong>Guests</strong>
+                            {{ booking.guests }}
+                        </div>
+                    </div>
+
+                    <div class="booking-summary-box">
+                        <h3>Reservation Summary</h3>
+                        <p><strong>Date:</strong> {{ booking.booking_date }}</p>
+                        <p><strong>Time:</strong> {{ booking.booking_time }}</p>
+                    </div>
+
+                    <div class="button-row">
+                        <a href="{% url 'home' %}" class="btn">Back to Home</a>
+                        <a href="{% url 'booking_history' %}" class="btn">Booking History</a>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Booking Assets</h2>
+
+                    {% if card_data and card_data.cardImageDataUrl %}
+                        <div class="generated-card">
+                            <img src="{{ card_data.cardImageDataUrl }}" alt="Generated Booking Card">
+                            <a href="{{ card_data.cardImageDataUrl }}" download="booking_card.png" class="btn">Download Card</a>
+                        </div>
+                    {% else %}
+                        <p class="muted">
+                            Booking saved successfully. Your booking card is still being processed in the background.
+                            Refresh this page after a few seconds to view it.
+                        </p>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
