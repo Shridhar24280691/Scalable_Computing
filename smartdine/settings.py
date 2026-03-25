@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "True") == "True"
-ALLOWED_HOSTS = ["http://restaurant-booking-app-env.eba-3wzf4qmm.us-east-1.elasticbeanstalk.com/", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["restaurant-booking-app-env.eba-3wzf4qmm.us-east-1.elasticbeanstalk.com", "localhost", "127.0.0.1"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
