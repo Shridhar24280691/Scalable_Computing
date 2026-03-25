@@ -69,8 +69,8 @@ jobs:
         run: |
           if [ -z "${{ secrets.EB_APP_NAME }}" ]; then
             echo "EB_APP_NAME missing"; exit 1; fi
-          if [ -z "${{ secrets.EB_ENV_NAME }}" ]; then
-            echo "EB_ENV_NAME missing"; exit 1; fi
+          if [ -z "${{ secrets.EB_ENVIRONMENT_NAME }}" ]; then
+            echo "EB_ENVIRONMENT_NAME missing"; exit 1; fi
           if [ -z "${{ secrets.AWS_REGION }}" ]; then
             echo "AWS_REGION missing"; exit 1; fi
           echo "EB config OK"
